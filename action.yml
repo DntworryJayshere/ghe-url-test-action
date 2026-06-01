@@ -1,0 +1,19 @@
+name: GHE URL Test Action
+description: Test action that demonstrates hardcoded GitHub API replacement
+inputs:
+  github-token:
+    description: GitHub token
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Call GitHub API using hardcoded URL
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+      run: |
+        echo "Calling hardcoded public GitHub API..."
+        curl -sS \
+          -H "Authorization: Bearer ${GH_TOKEN}" \
+          -H "Accept: application/vnd.github+json" \
+          "https://api.github.com/repos/${GITHUB_REPOSITORY}"
